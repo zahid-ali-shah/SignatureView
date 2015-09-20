@@ -4,7 +4,7 @@
 
     <item android:id="@+id/action_download" android:title="@string/action_download"
         android:orderInCategory="100" app:showAsAction="always"
-        android:icon="@drawable/ic_save_white_24dp"/>
+        android:icon="@drawable/ic_archive_white_24dp"/>
 
     <item android:id="@+id/action_clear" android:title="@string/action_clear"
         android:orderInCategory="100" app:showAsAction="always"

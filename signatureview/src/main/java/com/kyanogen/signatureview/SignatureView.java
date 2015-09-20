@@ -1,6 +1,8 @@
 package com.kyanogen.signatureview;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -34,10 +36,12 @@ public class SignatureView extends View {
     private int penColor, backgroundColor;
     private boolean enableSignature;
     private float penSize;
+    private Context context;
 
     @SuppressWarnings("deprecation")
     public SignatureView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         this.setWillNotDraw(false);
         this.setDrawingCacheEnabled(true);
 
@@ -56,7 +60,20 @@ public class SignatureView extends View {
             typedArray.recycle();
         }
 
-        init(context);
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(penColor);
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeWidth(penSize);
+
+        paintBm = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paintBm.setAntiAlias(true);
+        paintBm.setStyle(Paint.Style.STROKE);
+        paintBm.setStrokeJoin(Paint.Join.ROUND);
+        paintBm.setStrokeCap(Paint.Cap.ROUND);
+        paintBm.setColor(Color.BLACK);
     }
 
     /**************** Getter/Setter *****************/
@@ -92,27 +109,6 @@ public class SignatureView extends View {
     @Override
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
-    }
-
-    /**************** Getter/Setter *****************/
-
-    public void init(Context context){
-
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paintBm = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-        paint.setColor(penColor);
-        paint.setAntiAlias(true);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setStrokeJoin(Paint.Join.ROUND);
-        paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(penSize);
-
-        paintBm.setAntiAlias(true);
-        paintBm.setStyle(Paint.Style.STROKE);
-        paintBm.setStrokeJoin(Paint.Join.ROUND);
-        paintBm.setStrokeCap(Paint.Cap.ROUND);
-        paintBm.setColor(Color.BLACK);
     }
 
     /**
@@ -289,5 +285,28 @@ public class SignatureView extends View {
 
     private Point midPoint(Point p1, Point p2){
         return new Point((p1.x + p2.x) / 2.0f ,  (p1.y + p2.y) / 2, (p1.time + p2.time) / 2);
+    }
+
+    public Bitmap getSignatureBitmap(){
+        return Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true);
+    }
+
+    /**
+     * Get version info related to library
+     *
+     * @return String
+     */
+    public String getVersionInfo(){
+        String versionInfo = null;
+        PackageInfo pInfo = null;
+        try {
+            pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            if(pInfo!=null){
+                versionInfo = "SignatureView Version : "+pInfo.versionName;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionInfo;
     }
 }

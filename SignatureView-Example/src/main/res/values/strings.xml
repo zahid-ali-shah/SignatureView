@@ -1,7 +1,14 @@
 <resources>
-    <string name="app_name">Signature</string>
+    <string name="app_name">Signature Demo App</string>
     <string name="title_activity_signature">Signature</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_download">Download</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_info">Info</string>
+
+    <string name="message">Info</string>
+    <string name="cancel">Cancel</string>
+    <string name="vInfo">Version Info</string>
+
+    <string name="c_name">Kyanogen Technologies</string>
 </resources>

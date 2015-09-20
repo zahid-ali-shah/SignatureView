@@ -10,8 +10,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/signatureview" />
+            <option value="$PROJECT_DIR$/SignatureView" />
+            <option value="$PROJECT_DIR$/SignatureView-Example" />
           </set>
         </option>
       </GradleProjectSettings>

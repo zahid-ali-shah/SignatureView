@@ -8,9 +8,7 @@ public class Signature extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signature);
-
+        setContentView(R.layout.activity_signature);    //see xml layout
 
     }
-
 }

@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,10 +31,11 @@ public class SignatureView extends View {
     private Bitmap bmp;
     private int layoutLeft, layoutTop, layoutRight, layoutBottom;
     private Rect drawViewRect;
-    private int penColor;
+    private int penColor, backgroundColor;
     private boolean enableSignature;
     private float penSize;
 
+    @SuppressWarnings("deprecation")
     public SignatureView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setWillNotDraw(false);
@@ -45,8 +45,10 @@ public class SignatureView extends View {
                 attrs,R.styleable.signature, 0, 0);
 
         try {
+            backgroundColor = typedArray.getColor(R.styleable.signature_backgroundColor,
+                    context.getResources().getColor(R.color.white));
             penColor = typedArray.getColor(R.styleable.signature_penColor,
-                    ContextCompat.getColor(context, R.color.penRoyalBlue));
+                    context.getResources().getColor(R.color.penRoyalBlue));
             penSize = typedArray.getDimension(R.styleable.signature_penSize,
                     context.getResources().getDimension(R.dimen.pen_size));
             enableSignature = typedArray.getBoolean(R.styleable.signature_enableSignature, true);
@@ -58,7 +60,6 @@ public class SignatureView extends View {
     }
 
     /**************** Getter/Setter *****************/
-
 
     public float getPenSize() {
         return penSize;
@@ -82,6 +83,15 @@ public class SignatureView extends View {
 
     public void setPenColor(int penColor) {
         this.penColor = penColor;
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    @Override
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
     /**************** Getter/Setter *****************/
@@ -137,6 +147,7 @@ public class SignatureView extends View {
         canvasBmp = null;
         bmp = Bitmap.createBitmap(right - left, bottom - top, Bitmap.Config.ARGB_8888);
         canvasBmp = new Canvas(bmp);
+        canvasBmp.drawColor(backgroundColor);
     }
 
     @Override

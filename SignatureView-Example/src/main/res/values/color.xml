@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="magenta_vivid">#c408ec</color>
+    <color name="light_blue">#B2EBF2</color>
+    <color name="magenta_dark">#73038b</color>
+    <color name="magenta_very_soft">#f1bcfd</color>
+    <color name="green">#7cb31a</color>
+    <color name="green_dark">#5d9100</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#FF0000</color>
+    <color name="yellow">#fff83b</color>
+    <color name="blue">#000cff</color>
+    <color name="gray">#a8a8a8</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="background_impure_white">#e5e5e5</color>
+
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="accent">#FF5722</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+
+
+    <color name="fab_red_primary">#F44336</color>
+    <color name="fab_red_primary_dark">#D32F2F</color>
+    <color name="fab_red_primary_light">#FFCDD2</color>
+
+    <color name="fab_green_primary">#4CAF50</color>
+    <color name="fab_green_primary_dark">#388E3C</color>
+    <color name="fab_green_primary_light">#C8E6C9</color>
+
+
+</resources>

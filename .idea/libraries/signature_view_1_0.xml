@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="signature-view-1.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/SignatureView-Example/build/intermediates/exploded-aar/com.kyanogen.signatureview/signature-view/1.0/res" />
+      <root url="jar://$PROJECT_DIR$/SignatureView-Example/build/intermediates/exploded-aar/com.kyanogen.signatureview/signature-view/1.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -135,7 +135,7 @@ public class Signature extends AppCompatActivity {
 
         String svInfo = signatureView.getVersionInfo();
         if(svInfo!=null){
-            infoMessage = infoMessage +"\n\n "+svInfo;
+            infoMessage = infoMessage +"\n\n"+svInfo;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

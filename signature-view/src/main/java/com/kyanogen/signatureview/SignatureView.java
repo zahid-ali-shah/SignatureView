@@ -78,34 +78,75 @@ public class SignatureView extends View {
 
     /**************** Getter/Setter *****************/
 
+    /**
+     * Get stoke size for signature creation
+     *
+     * @return float
+     */
     public float getPenSize() {
         return penSize;
     }
 
+    /**
+     * Set stoke size for signature creation
+     *
+     * @param   penSize float
+     */
     public void setPenSize(float penSize) {
         this.penSize = penSize;
     }
 
+    /**
+     * Check if drawing on canvas is enabled or disabled
+     *
+     * @return boolean
+     */
     public boolean isEnableSignature() {
         return enableSignature;
     }
 
+    /**
+     * Enable or disable drawing on canvas
+     *
+     * @param   enableSignature boolean
+     */
     public void setEnableSignature(boolean enableSignature) {
         this.enableSignature = enableSignature;
     }
 
+    /**
+     * Get stoke color for signature creation
+     *
+     * @return int
+     */
     public int getPenColor() {
         return penColor;
     }
 
+    /**
+     * Set stoke color for signature creation
+     *
+     * @param   penColor int
+     */
     public void setPenColor(int penColor) {
         this.penColor = penColor;
     }
 
+    /**
+     * Get background color
+     *
+     * @return int
+     */
     public int getBackgroundColor() {
         return backgroundColor;
     }
 
+
+    /**
+     * Set background color
+     *
+     * @param   backgroundColor int
+     */
     @Override
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
@@ -113,6 +154,7 @@ public class SignatureView extends View {
 
     /**
      * Clear signature from canvas
+     *
      */
     public void clearCanvas(){
         previousPoint=null;
@@ -287,6 +329,11 @@ public class SignatureView extends View {
         return new Point((p1.x + p2.x) / 2.0f ,  (p1.y + p2.y) / 2, (p1.time + p2.time) / 2);
     }
 
+    /**
+     * Get signature as bitmap
+     *
+     * @return Bitmap
+     */
     public Bitmap getSignatureBitmap(){
         return Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true);
     }

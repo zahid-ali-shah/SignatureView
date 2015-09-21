@@ -19,8 +19,14 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url 'https://dl.bintray.com/zahid/maven/'
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile project(":SignatureView")
+    compile 'com.kyanogen.signatureview:signature-view:1.0'
 }

@@ -1,18 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.kyanogen.signatureview.SignatureView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sign="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.kyanogen.signatureview.SignatureView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        tools:context="com.kyanogen.signature.Signature"
-        android:id="@+id/signature_view"
-        sign:enableSignature="true"
-        sign:penSize="3dp"
-        sign:backgroundColor="#ffffff"
-        sign:penColor="#000000"/>
-
-</RelativeLayout>
+    android:layout_height="match_parent"
+    android:id="@+id/signature_view"
+    sign:enableSignature="true"
+    sign:penSize="3dp"
+    sign:backgroundColor="#ffffff"
+    sign:penColor="#000000"/>

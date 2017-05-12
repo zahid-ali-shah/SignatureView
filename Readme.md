@@ -80,7 +80,8 @@ Add the following to your `build.gradle`:
         Bitmap bitmap = signatureView.getSignatureBitmap();
 
 # 3. Developed by
-Syed Zahid for Kyanogen Technologies
+<a href="https://www.linkedin.com/in/zahidsha/">Syed Zahid </a> for <a href="https://www.facebook.com/Kyanogen/">Kyanogen Technologies</a>
+
 
 # 4. License
 

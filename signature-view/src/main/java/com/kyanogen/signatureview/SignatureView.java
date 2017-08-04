@@ -172,8 +172,7 @@ public class SignatureView extends View {
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right,
-                            int bottom) {
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         layoutLeft = left;
         layoutTop = top;
@@ -187,9 +186,11 @@ public class SignatureView extends View {
     private void newBitmapCanvas(int left, int top, int right, int bottom) {
         bmp = null;
         canvasBmp = null;
-        bmp = Bitmap.createBitmap(right - left, bottom - top, Bitmap.Config.ARGB_8888);
-        canvasBmp = new Canvas(bmp);
-        canvasBmp.drawColor(backgroundColor);
+        if ((right - left)>0 && (bottom - top)>0) {
+            bmp = Bitmap.createBitmap(right - left, bottom - top, Bitmap.Config.ARGB_8888);
+            canvasBmp = new Canvas(bmp);
+            canvasBmp.drawColor(backgroundColor);
+        }
     }
 
     @Override
@@ -305,16 +306,16 @@ public class SignatureView extends View {
 
     private void draw(Point p0, Point p1, Point p2, float lastWidth,
                       float currentWidth, float velocity){
+        if(canvasBmp!=null){
+            float xa, xb, ya, yb, x, y;
+            float increment;
+            if(velocity>MIN_VELOCITY_BOUND && velocity< MAX_VELOCITY_BOUND){
+                increment = DRAWING_CONSTANT - (velocity * INCREMENT_CONSTANT);
+            }else{
+                increment = MIN_INCREMENT;
+            }
 
-        float xa, xb, ya, yb, x, y;
-        float increment;
-        if(velocity>MIN_VELOCITY_BOUND && velocity< MAX_VELOCITY_BOUND){
-            increment = DRAWING_CONSTANT - (velocity * INCREMENT_CONSTANT);
-        }else{
-            increment = MIN_INCREMENT;
-        }
-
-        for(float i = 0f; i < 1f; i += increment){
+            for(float i = 0f; i < 1f; i += increment){
                 xa = getPt( p0.x , p1.x , i );
                 ya = getPt( p0.y , p1.y , i );
                 xb = getPt( p1.x , p2.x , i );
@@ -323,9 +324,10 @@ public class SignatureView extends View {
                 x = getPt( xa , xb , i );
                 y = getPt( ya , yb , i );
 
-            float strokeVal = lastWidth + (currentWidth - lastWidth) * (i);
-            paint.setStrokeWidth(strokeVal < MIN_PEN_SIZE ? MIN_PEN_SIZE : strokeVal);
-            canvasBmp.drawPoint(x, y, paint);
+                float strokeVal = lastWidth + (currentWidth - lastWidth) * (i);
+                paint.setStrokeWidth(strokeVal < MIN_PEN_SIZE ? MIN_PEN_SIZE : strokeVal);
+                canvasBmp.drawPoint(x, y, paint);
+            }
         }
     }
 
@@ -339,7 +341,11 @@ public class SignatureView extends View {
      * @return Bitmap
      */
     public Bitmap getSignatureBitmap(){
-        return Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true);
+        if (bmp!=null) {
+            return Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true);
+        }else {
+            return null;
+        }
     }
 
     private Bitmap getSignatureBitmap(Bitmap bitmap){
@@ -351,13 +357,14 @@ public class SignatureView extends View {
      *
      * @param   bitmap Bitmap
      */
-    public void setBitmap(Bitmap bitmap)
-    {
-        bmp=bitmap;
-        canvasBmp = new Canvas(bitmap);
-        postInvalidate();
+    public void setBitmap(Bitmap bitmap) {
+        if (bmp!=null) {
+            bmp=bitmap;
+            canvasBmp = new Canvas(bitmap);
+            postInvalidate();
+        }
     }
-    
+
     /**
      * Check is signature bitmap empty
      *

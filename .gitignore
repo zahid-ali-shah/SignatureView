@@ -118,6 +118,7 @@ obj/
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+.idea/markdown-navigator.xml
 
 # Keystore files
 
@@ -168,3 +169,4 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.gitignore.io/api/android,androidstudio
+.idea/copyright/

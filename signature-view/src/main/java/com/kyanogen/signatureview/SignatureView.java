@@ -337,6 +337,33 @@ public class SignatureView extends View {
     public Bitmap getSignatureBitmap(){
         return Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true);
     }
+    
+    /**
+     * Render bitmap in signature
+     *
+     * @param   bitmap Bitmap
+     */
+    public void setBitmap(Bitmap bitmap)
+    {
+        bmp=bitmap;
+        canvasBmp = new Canvas(bitmap);
+        postInvalidate();
+    }
+    
+    /**
+     * Check is signature bitmap empty
+     *
+     * @return boolean
+     */
+    public boolean isBitmapEmpty()
+    {
+        if(bmp!=null) {
+            Bitmap emptyBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+            if (bmp.sameAs(emptyBitmap)) {
+                return true;}}
+        return false;
+
+    }
 
     /**
      * Get version info related to library

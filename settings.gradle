@@ -1,1 +1,1 @@
-include 'SignatureView-Example'
+include 'SignatureView-Example', 'signature-view'

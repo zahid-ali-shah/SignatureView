@@ -12,19 +12,16 @@ import android.widget.TextView;
 
 public class Splash extends Activity {
 
-    private Context mContext;
-    private TextView textView;
-    private ImageView logoImg;
-    private static int SPLASH_TIME_OUT = 2000;
+    private static final int SPLASH_TIME_OUT = 2000;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        mContext = this;
+        Context mContext = this;
 
-        logoImg = (ImageView) findViewById(R.id.company_logo);
-        textView = (TextView) findViewById(R.id.splash_text);
+        ImageView logoImg = findViewById(R.id.company_logo);
+        TextView textView = findViewById(R.id.splash_text);
 
         Typeface typeface = Typeface.createFromAsset(mContext.getAssets(),
                 "Exo2-Light.otf");

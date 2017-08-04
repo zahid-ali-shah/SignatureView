@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -31,7 +32,8 @@ public class Signature extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signature);//see xml layout
-        signatureView = (SignatureView) findViewById(R.id.signature_view);
+        signatureView = findViewById(R.id.signature_view);
+        signatureView.setPenColor(Color.RED);
     }
 
     @Override
@@ -91,19 +93,22 @@ public class Signature extends AppCompatActivity {
                     }
                 }
                 return true;
-
+            case R.id.action_has_signature:
+                Toast.makeText(getApplicationContext(),
+                        "SignatureView is empty: "+signatureView.isBitmapEmpty(),Toast.LENGTH_SHORT).show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public class MyMediaScanner implements
+    private class MyMediaScanner implements
             MediaScannerConnection.MediaScannerConnectionClient {
 
         private MediaScannerConnection mSC;
         private File file;
 
-        public MyMediaScanner(Context context, File file) {
+        MyMediaScanner(Context context, File file) {
             this.file = file;
             mSC = new MediaScannerConnection(context, this);
             mSC.connect();

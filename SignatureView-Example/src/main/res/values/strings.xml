@@ -5,6 +5,7 @@
     <string name="action_download">Download</string>
     <string name="action_clear">Clear</string>
     <string name="action_info">Info</string>
+    <string name="action_has_signature">Has signature</string>
 
     <string name="message">Info</string>
     <string name="cancel">Cancel</string>

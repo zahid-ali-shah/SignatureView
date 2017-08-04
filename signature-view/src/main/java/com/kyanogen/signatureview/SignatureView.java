@@ -27,7 +27,7 @@ public class SignatureView extends View {
     public static final float MAX_VELOCITY_BOUND = 15f;
     private static final float MIN_VELOCITY_BOUND = 1.6f;
     private static final float STROKE_DES_VELOCITY = 1.0f;
-    private float VELOCITY_FILTER_WEIGHT = 0.2f;
+    private static final float VELOCITY_FILTER_WEIGHT = 0.2f;
     private float lastVelocity, lastWidth;
     private Paint paint, paintBm;
     private Bitmap bmp;
@@ -130,6 +130,7 @@ public class SignatureView extends View {
      */
     public void setPenColor(int penColor) {
         this.penColor = penColor;
+        paint.setColor(penColor);
     }
 
     /**

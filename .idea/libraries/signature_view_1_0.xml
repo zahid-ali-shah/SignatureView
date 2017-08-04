@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="signature-view-1.0">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/SignatureView-Example/build/intermediates/exploded-aar/com.kyanogen.signatureview/signature-view/1.0/res" />
-      <root url="jar://$PROJECT_DIR$/SignatureView-Example/build/intermediates/exploded-aar/com.kyanogen.signatureview/signature-view/1.0/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/ca892f6a69eae07b004e71aa89b1e1524f473dcb/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/ca892f6a69eae07b004e71aa89b1e1524f473dcb/output/res" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kyanogen.signatureview/signature-view/1.0/b7eb92078a1f8edade12a16dbd44fe39c85518f3/signature-view-1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

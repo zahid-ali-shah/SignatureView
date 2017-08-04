@@ -9,9 +9,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
 import com.kyanogen.signatureview.model.Point;
 
 public class SignatureView extends View {
@@ -338,7 +341,11 @@ public class SignatureView extends View {
     public Bitmap getSignatureBitmap(){
         return Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true);
     }
-    
+
+    private Bitmap getSignatureBitmap(Bitmap bitmap){
+        return Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+    }
+
     /**
      * Render bitmap in signature
      *
@@ -356,14 +363,17 @@ public class SignatureView extends View {
      *
      * @return boolean
      */
-    public boolean isBitmapEmpty()
-    {
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB_MR1)
+    public boolean isBitmapEmpty() {
         if(bmp!=null) {
             Bitmap emptyBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+            Canvas canvasBmp = new Canvas(emptyBitmap);
+            canvasBmp.drawColor(backgroundColor);
             if (bmp.sameAs(emptyBitmap)) {
-                return true;}}
+                return true;
+            }
+        }
         return false;
-
     }
 
     /**

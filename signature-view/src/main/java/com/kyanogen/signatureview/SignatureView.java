@@ -17,6 +17,8 @@ import android.view.View;
 
 import com.kyanogen.signatureview.model.Point;
 
+import java.util.HashMap;
+
 public class SignatureView extends View {
 
     public static final String TAG = SignatureView.class.getSimpleName();
@@ -40,6 +42,7 @@ public class SignatureView extends View {
     private boolean enableSignature;
     private float penSize;
     private Context context;
+    private HashMap<Integer,Point> points;
 
     @SuppressWarnings("deprecation")
     public SignatureView(Context context, AttributeSet attrs) {
@@ -47,6 +50,8 @@ public class SignatureView extends View {
         this.context = context;
         this.setWillNotDraw(false);
         this.setDrawingCacheEnabled(true);
+
+        points = new HashMap<Integer,Point>();
 
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
                 attrs,R.styleable.signature, 0, 0);

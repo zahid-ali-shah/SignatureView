@@ -49,7 +49,7 @@ public class SignatureView extends View {
         this.setDrawingCacheEnabled(true);
 
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
-                attrs,R.styleable.signature, 0, 0);
+                attrs, R.styleable.signature, 0, 0);
 
         try {
             backgroundColor = typedArray.getColor(R.styleable.signature_backgroundColor,
@@ -93,7 +93,7 @@ public class SignatureView extends View {
     /**
      * Set stoke size for signature creation
      *
-     * @param   penSize float
+     * @param penSize float
      */
     public void setPenSize(float penSize) {
         this.penSize = penSize;
@@ -111,7 +111,7 @@ public class SignatureView extends View {
     /**
      * Enable or disable drawing on canvas
      *
-     * @param   enableSignature boolean
+     * @param enableSignature boolean
      */
     public void setEnableSignature(boolean enableSignature) {
         this.enableSignature = enableSignature;
@@ -129,7 +129,7 @@ public class SignatureView extends View {
     /**
      * Set stoke color for signature creation
      *
-     * @param   penColor int
+     * @param penColor int
      */
     public void setPenColor(int penColor) {
         this.penColor = penColor;
@@ -149,7 +149,7 @@ public class SignatureView extends View {
     /**
      * Set background color
      *
-     * @param   backgroundColor int
+     * @param backgroundColor int
      */
     @Override
     public void setBackgroundColor(int backgroundColor) {
@@ -158,12 +158,11 @@ public class SignatureView extends View {
 
     /**
      * Clear signature from canvas
-     *
      */
-    public void clearCanvas(){
-        previousPoint=null;
-        startPoint=null;
-        currentPoint=null;
+    public void clearCanvas() {
+        previousPoint = null;
+        startPoint = null;
+        currentPoint = null;
         lastVelocity = 0;
         lastWidth = 0;
 
@@ -178,7 +177,7 @@ public class SignatureView extends View {
         layoutTop = top;
         layoutRight = right;
         layoutBottom = bottom;
-        if(bmp == null){
+        if (bmp == null) {
             newBitmapCanvas(layoutLeft, layoutTop, layoutRight, layoutBottom);
         }
     }
@@ -186,7 +185,7 @@ public class SignatureView extends View {
     private void newBitmapCanvas(int left, int top, int right, int bottom) {
         bmp = null;
         canvasBmp = null;
-        if ((right - left)>0 && (bottom - top)>0) {
+        if ((right - left) > 0 && (bottom - top) > 0) {
             bmp = Bitmap.createBitmap(right - left, bottom - top, Bitmap.Config.ARGB_8888);
             canvasBmp = new Canvas(bmp);
             canvasBmp.drawColor(backgroundColor);
@@ -195,33 +194,35 @@ public class SignatureView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!isEnableSignature()){
+        if (!isEnableSignature()) {
             return false;
         }
 
-        if(event.getPointerCount() > 1) {
+        if (event.getPointerCount() > 1) {
             return false;
         }
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 ignoreTouch = false;
-                drawViewRect = new Rect(this.getLeft(), this.getTop(), this.getRight(), this.getBottom());
+                drawViewRect = new Rect(this.getLeft(), this.getTop(), this.getRight(),
+                        this.getBottom());
                 onTouchDownEvent(event.getX(), event.getY());
                 break;
             case MotionEvent.ACTION_MOVE:
-                if(!drawViewRect.contains(getLeft() + (int) event.getX(), this.getTop() + (int) event.getY())){
+                if (!drawViewRect.contains(getLeft() + (int) event.getX(),
+                        this.getTop() + (int) event.getY())) {
                     //You are out of drawing area
-                    if(!ignoreTouch){
+                    if (!ignoreTouch) {
                         ignoreTouch = true;
                         onTouchUpEvent(event.getX(), event.getY());
                     }
                 } else {
                     //You are in the drawing area
-                    if(ignoreTouch){
+                    if (ignoreTouch) {
                         ignoreTouch = false;
                         onTouchDownEvent(event.getX(), event.getY());
-                    }else{
+                    } else {
                         onTouchMoveEvent(event.getX(), event.getY());
                     }
                 }
@@ -237,9 +238,9 @@ public class SignatureView extends View {
     }
 
     private void onTouchDownEvent(float x, float y) {
-        previousPoint=null;
-        startPoint=null;
-        currentPoint=null;
+        previousPoint = null;
+        startPoint = null;
+        currentPoint = null;
         lastVelocity = 0;
         lastWidth = penSize;
 
@@ -250,7 +251,7 @@ public class SignatureView extends View {
     }
 
     private void onTouchMoveEvent(float x, float y) {
-        if(previousPoint==null){
+        if (previousPoint == null) {
             return;
         }
         startPoint = previousPoint;
@@ -270,7 +271,7 @@ public class SignatureView extends View {
     }
 
     private void onTouchUpEvent(float x, float y) {
-        if(previousPoint==null){
+        if (previousPoint == null) {
             return;
         }
         startPoint = previousPoint;
@@ -281,7 +282,7 @@ public class SignatureView extends View {
         postInvalidate();
     }
 
-    private float getStrokeWidth(float velocity){
+    private float getStrokeWidth(float velocity) {
         return penSize - (velocity * STROKE_DES_VELOCITY);
     }
 
@@ -291,7 +292,7 @@ public class SignatureView extends View {
     }
 
     private void drawLine(final float lastWidth, final float currentWidth,
-                          final float velocity){
+            final float velocity) {
         final Point mid1 = midPoint(previousPoint, startPoint);
         final Point mid2 = midPoint(currentPoint, previousPoint);
 
@@ -299,30 +300,30 @@ public class SignatureView extends View {
                 currentWidth, velocity);
     }
 
-    private float getPt( float n1 , float n2 , float perc){
+    private float getPt(float n1, float n2, float perc) {
         float diff = n2 - n1;
-        return n1 + ( diff * perc );
+        return n1 + (diff * perc);
     }
 
     private void draw(Point p0, Point p1, Point p2, float lastWidth,
-                      float currentWidth, float velocity){
-        if(canvasBmp!=null){
+            float currentWidth, float velocity) {
+        if (canvasBmp != null) {
             float xa, xb, ya, yb, x, y;
             float increment;
-            if(velocity>MIN_VELOCITY_BOUND && velocity< MAX_VELOCITY_BOUND){
+            if (velocity > MIN_VELOCITY_BOUND && velocity < MAX_VELOCITY_BOUND) {
                 increment = DRAWING_CONSTANT - (velocity * INCREMENT_CONSTANT);
-            }else{
+            } else {
                 increment = MIN_INCREMENT;
             }
 
-            for(float i = 0f; i < 1f; i += increment){
-                xa = getPt( p0.x , p1.x , i );
-                ya = getPt( p0.y , p1.y , i );
-                xb = getPt( p1.x , p2.x , i );
-                yb = getPt( p1.y , p2.y , i );
+            for (float i = 0f; i < 1f; i += increment) {
+                xa = getPt(p0.x, p1.x, i);
+                ya = getPt(p0.y, p1.y, i);
+                xb = getPt(p1.x, p2.x, i);
+                yb = getPt(p1.y, p2.y, i);
 
-                x = getPt( xa , xb , i );
-                y = getPt( ya , yb , i );
+                x = getPt(xa, xb, i);
+                y = getPt(ya, yb, i);
 
                 float strokeVal = lastWidth + (currentWidth - lastWidth) * (i);
                 paint.setStrokeWidth(strokeVal < MIN_PEN_SIZE ? MIN_PEN_SIZE : strokeVal);
@@ -331,8 +332,8 @@ public class SignatureView extends View {
         }
     }
 
-    private Point midPoint(Point p1, Point p2){
-        return new Point((p1.x + p2.x) / 2.0f ,  (p1.y + p2.y) / 2, (p1.time + p2.time) / 2);
+    private Point midPoint(Point p1, Point p2) {
+        return new Point((p1.x + p2.x) / 2.0f, (p1.y + p2.y) / 2, (p1.time + p2.time) / 2);
     }
 
     /**
@@ -340,26 +341,26 @@ public class SignatureView extends View {
      *
      * @return Bitmap
      */
-    public Bitmap getSignatureBitmap(){
-        if (bmp!=null) {
+    public Bitmap getSignatureBitmap() {
+        if (bmp != null) {
             return Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true);
-        }else {
+        } else {
             return null;
         }
     }
 
-    private Bitmap getSignatureBitmap(Bitmap bitmap){
+    private Bitmap getSignatureBitmap(Bitmap bitmap) {
         return Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
     }
 
     /**
      * Render bitmap in signature
      *
-     * @param   bitmap Bitmap
+     * @param bitmap Bitmap
      */
     public void setBitmap(Bitmap bitmap) {
-        if (bmp!=null) {
-            bmp=bitmap;
+        if (bitmap != null) {
+            bmp = bitmap;
             canvasBmp = new Canvas(bitmap);
             postInvalidate();
         }
@@ -372,8 +373,9 @@ public class SignatureView extends View {
      */
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB_MR1)
     public boolean isBitmapEmpty() {
-        if(bmp!=null) {
-            Bitmap emptyBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+        if (bmp != null) {
+            Bitmap emptyBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(),
+                    bmp.getConfig());
             Canvas canvasBmp = new Canvas(emptyBitmap);
             canvasBmp.drawColor(backgroundColor);
             if (bmp.sameAs(emptyBitmap)) {
@@ -388,13 +390,13 @@ public class SignatureView extends View {
      *
      * @return String
      */
-    public String getVersionInfo(){
+    public String getVersionInfo() {
         String versionInfo = null;
         PackageInfo pInfo = null;
         try {
             pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            if(pInfo!=null){
-                versionInfo = "SignatureView Version : "+pInfo.versionName;
+            if (pInfo != null) {
+                versionInfo = "SignatureView Version : " + pInfo.versionName;
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

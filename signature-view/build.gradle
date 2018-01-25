@@ -2,17 +2,17 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.1"
+version = "1.2"
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 26
-        versionCode 2
-        versionName "1.1"
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 3
+        versionName "1.2"
     }
     buildTypes {
         release {
@@ -27,9 +27,9 @@ configurations {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-annotations:26.0.0'
-    javadocDeps 'com.android.support:support-annotations:26.0.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:support-annotations:27.0.2'
+    javadocDeps 'com.android.support:support-annotations:27.0.2'
 }
 
 def siteUrl = 'https://github.com/zahid-ali-shah/SignatureView'

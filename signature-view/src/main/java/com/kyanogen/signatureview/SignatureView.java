@@ -1,16 +1,12 @@
 package com.kyanogen.signatureview;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -371,7 +367,6 @@ public class SignatureView extends View {
      *
      * @return boolean
      */
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB_MR1)
     public boolean isBitmapEmpty() {
         if (bmp != null) {
             Bitmap emptyBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(),
@@ -386,21 +381,11 @@ public class SignatureView extends View {
     }
 
     /**
-     * Get version info related to library
+     * Get library version name
      *
      * @return String
      */
-    public String getVersionInfo() {
-        String versionInfo = null;
-        PackageInfo pInfo = null;
-        try {
-            pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            if (pInfo != null) {
-                versionInfo = "SignatureView Version : " + pInfo.versionName;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return versionInfo;
+    public String getVersionName() {
+        return BuildConfig.VERSION_NAME;
     }
 }

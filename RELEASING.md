@@ -1,6 +1,6 @@
 # SignatureView Release Process
 
-1. 	Make sure it builds! and gradle sync doesn’t produce any errors.
+1. 	Make sure it builds! and gradle sync does not produce any errors.
 
 2. 	gradlew install
 	

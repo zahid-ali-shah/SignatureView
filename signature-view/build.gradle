@@ -27,8 +27,7 @@ configurations {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:support-annotations:27.0.2'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     javadocDeps 'com.android.support:support-annotations:27.0.2'
 }
 

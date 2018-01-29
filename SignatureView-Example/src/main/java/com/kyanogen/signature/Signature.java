@@ -3,21 +3,21 @@ package com.kyanogen.signature;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import com.kyanogen.signatureview.SignatureView;
+
+import com.kyanogen.signatureview.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -33,7 +33,10 @@ public class Signature extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signature);//see xml layout
         signatureView = findViewById(R.id.signature_view);
-        signatureView.setPenColor(Color.RED);
+
+        int colorPrimary = ContextCompat.getColor(this, R.color.colorAccent);
+        signatureView.setPenColor(colorPrimary);
+        // or like signatureView.setPenColor(Color.RED);
     }
 
     @Override
@@ -51,19 +54,19 @@ public class Signature extends AppCompatActivity {
             case R.id.action_clear:
                 signatureView.clearCanvas();//Clear SignatureView
                 Toast.makeText(getApplicationContext(),
-                        "Clear canvas",Toast.LENGTH_SHORT).show();
+                        "Clear canvas", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_download:
                 File directory = Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                File file = new File(directory, System.currentTimeMillis()+".png");
+                File file = new File(directory, System.currentTimeMillis() + ".png");
                 FileOutputStream out = null;
                 Bitmap bitmap = signatureView.getSignatureBitmap();
                 try {
                     out = new FileOutputStream(file);
-                    if(bitmap!=null){
+                    if (bitmap != null) {
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                    }else{
+                    } else {
                         throw new FileNotFoundException();
                     }
                 } catch (Exception e) {
@@ -74,9 +77,10 @@ public class Signature extends AppCompatActivity {
                             out.flush();
                             out.close();
 
-                            if(bitmap!=null){
+                            if (bitmap != null) {
                                 Toast.makeText(getApplicationContext(),
-                                        "Image saved successfully at "+ file.getPath(),Toast.LENGTH_LONG).show();
+                                        "Image saved successfully at " + file.getPath(),
+                                        Toast.LENGTH_LONG).show();
                                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
                                     new MyMediaScanner(this, file);
                                 } else {
@@ -84,7 +88,8 @@ public class Signature extends AppCompatActivity {
                                     toBeScanned.add(file.getAbsolutePath());
                                     String[] toBeScannedStr = new String[toBeScanned.size()];
                                     toBeScannedStr = toBeScanned.toArray(toBeScannedStr);
-                                    MediaScannerConnection.scanFile(this, toBeScannedStr, null, null);
+                                    MediaScannerConnection.scanFile(this, toBeScannedStr, null,
+                                            null);
                                 }
                             }
                         }
@@ -95,7 +100,8 @@ public class Signature extends AppCompatActivity {
                 return true;
             case R.id.action_has_signature:
                 Toast.makeText(getApplicationContext(),
-                        "SignatureView is empty: "+signatureView.isBitmapEmpty(),Toast.LENGTH_SHORT).show();
+                        "SignatureView is empty: " + signatureView.isBitmapEmpty(),
+                        Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -125,24 +131,10 @@ public class Signature extends AppCompatActivity {
         }
     }
 
-    public void InfoDialog(){
-        String infoMessage = "";
-        PackageInfo pInfo = null;
-        try {
-            pInfo = getPackageManager()
-                    .getPackageInfo(getPackageName(), 0);
-            if(pInfo!=null){
-                infoMessage = "App Version : "+pInfo.versionName;
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String svInfo = signatureView.getVersionInfo();
-        if(svInfo!=null){
-            infoMessage = infoMessage +"\n\n"+svInfo;
-        }
-
+    public void InfoDialog() {
+        String infoMessage = "App version : " + BuildConfig.VERSION_NAME;
+        infoMessage = infoMessage + "\n\n" + "SignatureView library version : " +
+                com.kyanogen.signatureview.BuildConfig.VERSION_NAME;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.vInfo)
                 .setMessage(infoMessage)

@@ -7,4 +7,4 @@
     sign:enableSignature="true"
     sign:penSize="3dp"
     sign:backgroundColor="#ffffff"
-    sign:penColor="#000000"/>
+    sign:penColor="@color/colorAccent"/>

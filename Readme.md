@@ -35,14 +35,8 @@ Add the following to your `build.gradle`:
             jcenter()
       }
       
-~~repositories {
-   maven {
-    url 'https://dl.bintray.com/zahid/maven/'
-    }
-  }~~
-      
       dependencies {
-          compile 'com.kyanogen.signatureview:signature-view:1.1@aar'
+          compile 'com.kyanogen.signatureview:signature-view:1.2'
       }
 
 #### 2.2 How to use view in xml layout
@@ -83,13 +77,17 @@ Add the following to your `build.gradle`:
 
         Bitmap bitmap = signatureView.getSignatureBitmap();
 
-# 3. Developed by
+# 3. Changelog
+
+[Click here](CHANGELOG.md) for the changelog
+
+# 4. Developed by
 <a href="https://www.linkedin.com/in/zahidsha/">Syed Zahid </a> for <a href="https://www.facebook.com/Kyanogen/">Kyanogen</a>
 
 
-# 4. License
+# 5. License
 
-Copyright 2015-2017 Kyanogen
+Copyright 2015-2018 Kyanogen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

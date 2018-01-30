@@ -22,6 +22,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.0.2'
-//    implementation project(":signature-view")
-    implementation 'com.kyanogen.signatureview:signature-view:1.1@aar'
+    implementation project(":signature-view")
+//    implementation 'com.kyanogen.signatureview:signature-view:1.2'
 }

@@ -13,7 +13,7 @@ Click below link to download demo app from Play store
 
 **SignatureView Demo App image**
 
-![SignatureView Demo App image](http://s22.postimg.org/su5uzwoqp/image.png)
+![SignatureView Demo App image](./screenshot.png "SignatureView")
 
 #### 1.2 Features
 
@@ -82,7 +82,9 @@ Add the following to your `build.gradle`:
 [Click here](CHANGELOG.md) for the changelog
 
 # 4. Developed by
-<a href="https://www.linkedin.com/in/zahidsha/">Syed Zahid </a> for <a href="https://www.facebook.com/Kyanogen/">Kyanogen</a>
+Developed by <a href="https://www.linkedin.com/in/zahidsha/" target="_blank">Syed Zahid </a> for 
+<a href="https://www.facebook.com/Kyanogen/" target="_blank">Kyanogen</a>. You can follow me on
+<a href="https://twitter.com/XahidSha" target="_blank">Twitter</a>
 
 
 # 5. License

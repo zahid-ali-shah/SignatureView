@@ -82,14 +82,13 @@ Add the following to your `build.gradle`:
 [Click here](CHANGELOG.md) for the changelog
 
 # 4. Developed by
-Developed by <a href="https://www.linkedin.com/in/zahidsha/" target="_blank">Syed Zahid </a> for 
-<a href="https://www.facebook.com/Kyanogen/" target="_blank">Kyanogen</a>. You can follow me on
+Developed by <a href="https://www.linkedin.com/in/zahidsha/" target="_blank">Syed Zahid</a>. You can follow me on
 <a href="https://twitter.com/XahidSha" target="_blank">Twitter</a>
 
 
 # 5. License
 
-Copyright 2015-2018 Kyanogen
+Copyright 2015-2018
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

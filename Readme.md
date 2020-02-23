@@ -1,3 +1,6 @@
+## This project is no longer maintained.
+### It works fine, but you have to do bug fixes (if any) for yourself
+
 # 1. Overview
 
 SignatureView is an open source Android library which allow developers to produce pen and paper like effect for creating signatures on Android. 

@@ -3,15 +3,20 @@ package com.kyanogen.signatureview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.kyanogen.signatureview.model.Point;
+
+import java.io.ByteArrayOutputStream;
 
 public class SignatureView extends View {
 
@@ -175,6 +180,8 @@ public class SignatureView extends View {
         layoutBottom = bottom;
         if (bmp == null) {
             newBitmapCanvas(layoutLeft, layoutTop, layoutRight, layoutBottom);
+        } else if (changed) {
+            resizeBitmapCanvas(bmp, layoutLeft, layoutTop, layoutRight, layoutBottom);
         }
     }
 
@@ -186,6 +193,13 @@ public class SignatureView extends View {
             canvasBmp = new Canvas(bmp);
             canvasBmp.drawColor(backgroundColor);
         }
+    }
+
+    private void resizeBitmapCanvas(Bitmap bmp, int left, int top, int right, int bottom) {
+        int newBottom = Math.max(bottom, bmp.getHeight());
+        int newRight = Math.max(right, bmp.getWidth());
+        newBitmapCanvas(left, top, newRight, newBottom);
+        canvasBmp.drawBitmap(bmp, 0, 0, null);
     }
 
     @Override
@@ -387,5 +401,64 @@ public class SignatureView extends View {
      */
     public String getVersionName() {
         return BuildConfig.VERSION_NAME;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        return new SavedState(superState, bmp);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if(!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState ss = (SavedState)state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        setBitmap(ss.bitmap);
+    }
+
+    static class SavedState extends BaseSavedState {
+
+        Bitmap bitmap;
+
+        SavedState(Parcelable superState, Bitmap bitmap) {
+            super(superState);
+            this.bitmap = bitmap;
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            bitmap = deCompress(in.createByteArray());
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeByteArray(compress(bitmap));
+        }
+
+        private static byte[] compress(Bitmap bitmap){
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            return stream.toByteArray();
+        }
+
+        private static Bitmap deCompress(byte[] byteArray) {
+            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
     }
 }
